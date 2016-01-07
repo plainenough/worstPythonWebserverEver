@@ -8,3 +8,10 @@ name ="Derrick Walton"
 print(name.lower())
 print(name.upper())
 
+# I'm combining some strings create myname. 
+first_name ="derrick"
+last_name ="walton"
+full_name = first_name + " " + last_name
+
+print(full_name)
+print(full_name.title())
