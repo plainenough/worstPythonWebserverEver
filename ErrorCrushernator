@@ -7,19 +7,31 @@ import codecs
 import random
 
 def Errornator(error):
-    errors = [u'Awwwww Bukkits', 
-            u'Turbo-NO-Bueno', 
-            u'Saving face is for the weak', 
+    errors = [u'Awwwww Bukkits.', 
+            u'Turbo-NO-Bueno.', 
+            u'Saving face is for the weak.', 
             u'(∩ ͡° ͜ʖ ͡°)⊃━☆ﾟ. * ・ ｡ﾟ Copypastus Totalus!!', 
-            u'Defensive Programming, also for the weak', 
-            u"If you're gonna be dumb you gotta be tough", 
-            u"It's not my data", 
+            u'Defensive Programming, also for the weak.', 
+            u"If you're gonna be dumb you gotta be tough.", 
+            u"It's not my data.", 
             u'We have a guy for that.',
             u'The answer is not 42!',
-            u"you've been robbed!",
-            u'You probably need to run it through fuckit.py',
-            u'If we could hit that bullseye the rest of the dominas will fall like a house of cards. Checkmate?',
-            u"Why don't you try that command again with a --suck-less option?"
+            u"You've been robbed!",
+            u'You probably need to run it through fuckit.py.',
+            u'If we could hit that bullseye the rest of the dominos will fall like a house of cards. Checkmate?',
+            u"Why don't you try that command again with a --suck-less option?",
+            u'Yeah that was made of suck!',
+            u"Good thing I caught that, windows would have bluescreened.",
+            u'HPFM',
+            u""""TypeError: 'str' object does not support item assignment”""",
+            u'Bad joke Tuesday.',
+            u'<Something useful here>',
+            u'His name was Robert Paulsen.',
+            u'This problem is bigger in Texas.',
+            u'Rebooting the sever....',
+            u"D'oh!",
+            u'Release the Kraken!',
+            u"I'm really happy for you, I'ma let you finish but....."
             ] 
     trash = error
     return random.choice(errors)
