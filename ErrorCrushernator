@@ -1,0 +1,34 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+#This will need to UTF really really Hard.
+import sys
+import codecs
+import random
+
+def Errornator(error):
+    errors = [u'Awwwww Bukkits', 
+            u'Turbo-NO-Bueno', 
+            u'Saving face is for the weak', 
+            u'(∩ ͡° ͜ʖ ͡°)⊃━☆ﾟ. * ・ ｡ﾟ Copypastus Totalus!!', 
+            u'Defensive Programming, also for the weak', 
+            u"If you're gonna be dumb you gotta be tough", 
+            u"It's not my data", 
+            u'We have a guy for that.',
+            u'The answer is not 42!',
+            u"you've been robbed!",
+            u'You probably need to run it through fuckit.py',
+            u'If we could hit that bullseye the rest of the dominas will fall like a house of cards. Checkmate?',
+            u"Why don't you try that command again with a --suck-less option?"
+            ] 
+    trash = error
+    return random.choice(errors)
+
+
+def main(error):
+    UTF8Writer = codecs.getwriter('utf8')
+    sys.stdout = UTF8Writer(sys.stdout)
+    return Errornator(error)
+
+if __name__ == '__main__':
+    print(main(u'string'))
