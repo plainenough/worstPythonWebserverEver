@@ -31,7 +31,22 @@ def Errornator(error):
             u'Rebooting the sever....',
             u"D'oh!",
             u'Release the Kraken!',
-            u"I'm really happy for you, I'ma let you finish but....."
+            u"I'm really happy for you, I'ma let you finish but.....",
+            u"I get what you're saying.",
+            u'Its on these big guys.',
+            u"I'm going to get you a list of all of the mess ups.",
+            u'Lets tighten up your list.',
+            u'Do you want a cookie?',
+            u'Or not....',
+            u"We don't have process for this.",
+            u'Giggity',
+            u'Gotta hit that like a caveman.',
+            u'I sent you an email already, what more do you want?',
+            u"It can't be that hard.",
+            u'We are still in need of more data.',
+            u'http://www.loser.com ---> make your day, visit this link, ignore this error.',
+            u'Required to make you mad.',
+            u"If you pay me, I'll deliver your error."
             ] 
     trash = error
     return random.choice(errors)
