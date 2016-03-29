@@ -6,7 +6,7 @@ import codecs
 
 #Flat template for python projects
 
-def main(error):
+def main():
     UTF8Writer = codecs.getwriter('utf8')
     sys.stdout = UTF8Writer(sys.stdout)
     #Do something here.
