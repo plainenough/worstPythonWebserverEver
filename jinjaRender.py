@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-'''This prgoam renders your jinja
+'''This program renders your jinja templates
 Usage:  python jinjaRender.py filename 
 Optional arguments:
     -p --path /path/to/dir/
