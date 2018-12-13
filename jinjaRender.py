@@ -4,6 +4,7 @@ Usage:  python jinjaRender.py filename
 Optional arguments:
     -p --path /path/to/dir/
     
+import jinjaRender
 jinjaRender.jinjaRender(filename, path)
 '''
 
