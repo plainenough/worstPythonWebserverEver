@@ -1,10 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-import sys
-import codecs
-
-#Flat template for python projects
+#!/usr/bin/env python3
 
 class People(object):
     """A simple class of people"""
@@ -31,9 +25,6 @@ class People(object):
         return "Success"
 
 def main():
-    UTF8Writer = codecs.getwriter('utf8')
-    sys.stdout = UTF8Writer(sys.stdout)
-
     return 
 
 if __name__ == '__main__':
