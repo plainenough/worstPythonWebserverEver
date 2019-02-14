@@ -3,13 +3,7 @@
 
 def main():
     serversocket = createSocket()
-    #import socket
-    #serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    #serversocket.bind((socket.gethostname(), 80))
-    #serversocket.bind(('', 80))
-    #TODO: Wire up config here.
-    #serversocket.listen(5)
-    #TODO: add configuration import
+    # TODO: add configuration import
     while True:
         (clientsocket, address) = serversocket.accept()
         clientsocket.run()
@@ -18,9 +12,9 @@ def main():
 def createSocket():
     import socket
     serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    #serversocket.bind((socket.gethostname(), 80))
+    # serversocket.bind((socket.gethostname(), 80))
     serversocket.bind(('', 80))
-    #TODO: Wire up config here.
+    # TODO: Wire up config here.
     serversocket.listen(5)
     return serversocket
 
