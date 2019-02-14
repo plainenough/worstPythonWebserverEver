@@ -2,7 +2,8 @@
 
 
 def main():
-    print("Does nothing at the moment.")
+    import server as myServer
+    myServer.main()
 
 
 if __name__ == '__main__':
