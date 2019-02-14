@@ -1,7 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
+# -*- coding: UTF-8 -*-
+
+
 def main(error):
-    UTF8Writer = codecs.getwriter('utf8')
-    sys.stdout = UTF8Writer(sys.stdout)
     return Errornator(error)
 
 
@@ -11,7 +12,7 @@ def Errornator(error):
         'Awwwww Bukkits.',
         'Turbo-NO-Bueno.',
         'Saving face is for the weak.',
-        '(∩ ͡° ͜ʖ ͡°)⊃━☆ﾟ. * ・ ｡ﾟ Copypastus Totalus!!',
+        u'(∩ ͡° ͜ʖ ͡°)⊃━☆ﾟ. * ・ ｡ﾟ Copypastus Totalus!!',
         'Defensive Programming, also for the weak.',
         "If you're gonna be dumb you gotta be tough.",
         "It's not my data.",
@@ -19,8 +20,8 @@ def Errornator(error):
         'The answer is not 42!',
         "Yo've been robbed!",
         'You probably need to run it through fuckit.py.',
-        'If we could hit that bullseye the rest of the dominos will fall like
-        a house of cards. Checkmate?',
+        "If we could hit that bullseye the rest of the dominos will fall like \
+a house of cards. Checkmate?",
         "Why don't you try that command again with a --suck-less option?",
         'Yeah that was made of suck!',
         "Good thing I caught that, windows would have bluescreened.",
@@ -40,6 +41,7 @@ def Errornator(error):
         'Lets tighten up your list.',
         'Do you want a cookie?',
         'Or not....',
+        u"(╯°□°)╯︵ ┻━┻",
         "We don't have process for this.",
         'Giggity',
         'Gotta hit that like a caveman.',
