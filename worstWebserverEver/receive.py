@@ -32,8 +32,8 @@ def checkMethod(method):
         elif myMethod == 'GET':
             response = False
     else:
-        statusCode = 503
-        response = "METHOD NOT AVAILABLE"
+        statusCode = 405
+        response = "METHOD NOT ALLOWED"
     return response, statusCode
 
 
