@@ -11,10 +11,9 @@ def main(rawreq):
     if not response:
         uri = req[1]
         body = getFiles(uri)
-        header ="""HTTP/1.1 {0} OK \
-Server: worstWebserverEver""".format(statusCode)
-    response = """{0} \
-{1}""".format(header, body)
+    header ="""HTTP/1.1 {0} OK \r
+Server: worstWebserverEver\r""".format(statusCode)
+    response = "{0}\n\n{1}".format(header, body)
     data = str.encode(response, 'utf-8')
     print("Data: {0}".format(data))
     return data
@@ -41,7 +40,7 @@ def getFiles(uri):
     if uri.split('/')[-1].split('.')[-1] != 'html':
        uri = "{0}index.html".format(uri)
        print(uri)
-    with open(".{0}".format(uri), 'rb') as newfile:
+    with open(".{0}".format(uri), 'r') as newfile:
         body = newfile.read()
     return body
 

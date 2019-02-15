@@ -2,14 +2,13 @@
 
 
 def main():
+    import receive
     serversocket = createSocket()
     # TODO: add configuration import
     while True:
         (clientsocket, address) = serversocket.accept()
         data = clientsocket.recv(1024)
-        import receive
         response = receive.main(data)
-        print("This is my response: {0}".format(response))
         clientsocket.sendall(response)
         clientsocket.close()
 
