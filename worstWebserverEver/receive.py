@@ -12,7 +12,7 @@ def main(rawreq):
     if not response:
         uri = req[1]
         (body, statusCode) = getFiles(uri, statusCode)
-    header ="""HTTP/1.1 {0} OK \r
+    header = """HTTP/1.1 {0} OK \r
 Server: worstWebserverEver\r""".format(statusCode)
     response = "{0}\n\n{1}".format(header, body)
     data = str.encode(response, 'utf-8')
@@ -40,7 +40,7 @@ def checkMethod(method):
 def getFiles(uri, statusCode):
     # TODO:  add templated files for return
     if uri.split('/')[-1].split('.')[-1] != 'html':
-       uri = "{0}index.html".format(uri)
+        uri = "{0}index.html".format(uri)
     try:
         with open(".{0}".format(uri), 'r') as newfile:
             body = newfile.read()
