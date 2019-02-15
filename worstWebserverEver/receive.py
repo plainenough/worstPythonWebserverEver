@@ -4,7 +4,6 @@
 def main(rawreq):
     # Request parsing
     req = str(rawreq, "utf-8").split(' ')
-    print(req)
     method = req[0]
     (response, statusCode) = checkMethod(method)
     body = ''
@@ -15,7 +14,6 @@ def main(rawreq):
 Server: worstWebserverEver\r""".format(statusCode)
     response = "{0}\n\n{1}".format(header, body)
     data = str.encode(response, 'utf-8')
-    print("Data: {0}".format(data))
     return data
 
 
