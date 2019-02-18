@@ -1,0 +1,26 @@
+server:
+    name: localhost
+    listener:
+        ipv4: 127.0.0.1
+        port: 80
+    webroot: '/var/www/html'
+
+
+defaults:
+    default_index: index.html
+    file_ext:
+        - html
+        - htm
+        - png
+        - txt
+        - jpeg
+        - jpg
+        - gif
+        - css
+    secondary_index: index.htm
+
+system:
+    log_path: '/var/log/www/general.log'
+    threading: false
+    thread_count: 8
+    user: wwe-data

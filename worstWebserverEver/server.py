@@ -3,6 +3,8 @@
 
 def main():
     import receive
+    import config
+    (args, config, log) = config.main()
     serversocket = createSocket()
     # TODO: add configuration import
     while True:
