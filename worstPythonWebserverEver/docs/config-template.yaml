@@ -1,10 +1,20 @@
 server:
-    name: localhost
     listener:
         ipv4: 127.0.0.1
         port: 80
+    log_path: '/var/log/www/general.log'
+    methods: 
+        - POST
+        - HEAD
+        - PUT
+        - DELETE
+        - GET
+        - OPTIONS
+    name: localhost
+    threading: false
+    thread_count: 8
+    user: wwe-data
     webroot: '/var/www/html'
-
 
 defaults:
     default_index: index.html
@@ -18,9 +28,3 @@ defaults:
         - gif
         - css
     secondary_index: index.htm
-
-system:
-    log_path: '/var/log/www/general.log'
-    threading: false
-    thread_count: 8
-    user: wwe-data
