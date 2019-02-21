@@ -18,6 +18,11 @@ server:
 
 defaults:
     default_index: index.html
+    error_pages:
+        403: docs/403.html
+        404: docs/404.html
+        405: docs/405.html
+        500: docs/500.html
     file_ext:
         - html
         - htm
