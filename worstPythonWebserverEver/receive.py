@@ -53,7 +53,6 @@ def checkFiles(config, request):
     for i in config['defaults']['indexes']:
         if os.path.isfile("{0}{1}".format(request, i)):
             uri = "{0}{1}".format(request, i)
-            print(uri)
             return uri
     return False
 
