@@ -24,11 +24,11 @@ def checkMethod(method):
         response = False
     elif myMethod == 'GET':
         response = 'GET'
-    elif myMethod = 'POST':
+    elif myMethod == 'POST':
         response = 'POST'
     elif myMethod == 'PUT':
         response = 'PUT'
-    elif myMethod = 'DELETE':
+    elif myMethod == 'DELETE':
         response = 'DELETE'
     else:
         response = 'INTERNAL SERVER ERROR'
