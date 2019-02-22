@@ -16,19 +16,19 @@ def main(config, method):
 
 def checkMethod(method):
     statuscode = 'UNSET'
-    if myMethod == 'OPTIONS':
+    if method == 'OPTIONS':
         statusecode = 200
         response = "Allow: {0}".format(' '.join(methodsEnabled).upper())
-    elif myMethod == 'HEAD':
+    elif method == 'HEAD':
         statuscode = 200
         response = False
-    elif myMethod == 'GET':
+    elif method == 'GET':
         response = 'GET'
-    elif myMethod == 'POST':
+    elif method == 'POST':
         response = 'POST'
-    elif myMethod == 'PUT':
+    elif method == 'PUT':
         response = 'PUT'
-    elif myMethod == 'DELETE':
+    elif method == 'DELETE':
         response = 'DELETE'
     else:
         response = 'INTERNAL SERVER ERROR'
