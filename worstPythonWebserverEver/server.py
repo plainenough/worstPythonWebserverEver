@@ -10,7 +10,7 @@ def main():
     while True:
         (clientsocket, address) = serversocket.accept()
         data = clientsocket.recv(1024)
-        response = receive.main(data)
+        response = receive.main(args, config, data)
         clientsocket.sendall(response)
         clientsocket.close()
 
