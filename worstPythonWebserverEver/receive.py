@@ -6,7 +6,7 @@ def main(args, config, rawreq):
     import headers
     req = str(rawreq, "utf-8").split(' ')
     myMethod = req[0]
-    (response, statusCode) = method.main(myMethod)
+    (response, statusCode) = method.main(config, myMethod)
     body = ''
     if response == 'GET':
         uri = req[1]
