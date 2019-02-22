@@ -31,9 +31,9 @@ def getFiles(config, uri, statusCode):
             with open(uri, 'r') as newfile:
                 statusCode = 200
                 body = newfile.read()
-        except IOError as e:
+        except IOError:
             statusCode = 403
-        except Exception as e:
+        except Exception:
             statusCode = 500
     else:
         statusCode = 404
