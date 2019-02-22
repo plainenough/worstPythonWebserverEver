@@ -21,26 +21,39 @@ def main(args, config, rawreq):
     return data
 
 
-def getFiles(uri, statusCode):
+def getFiles(config, uri, statusCode):
     # TODO:  add templated files for return
-    if uri.split('/')[-1].split('.')[-1] != 'html':
-        uri = "{0}index.html".format(uri)
-    try:
-        with open(".{0}".format(uri), 'r') as newfile:
-            body = newfile.read()
-    except FileNotFoundError as e:
+    file_ext = uri.split('/')[-1].split('.')[-1]
+    if file_ext not in config['defaults']['file_ext']:
+        uri = deckFiles(config, uri)
+    if uri:
+        try:
+            with open(uri, 'r') as newfile:
+                statusCode = 200
+                body = newfile.read()
+        except IOError as e:
+            statusCode = 403
+        except Exception as e:
+            statusCode = 500
+    else:
         statusCode = 404
-        body = "<html><body><p>404 - File not Found \
-                </p></body></html>"
-    except IOError as e:
-        statusCode = 403
-        body = "<html><body><p>403 - Not Authorized \
-                </p></body></html>"
-    except Exception as e:
-        statusCode = 500
-        body = "<html><body><p>500 - internal server error \
-                </p></body></html>"
+    if body == '':
+        try:
+            errorPath = config['defaults']['error_pages'][statusCode]
+            with open(errorPath, 'r') as errorDoc:
+                body = errorDoc.read()
+        except Exception:
+            body='EMPTY ERROR STRING'
     return body, statusCode
+
+
+def checkFiles(config, uri):
+    import os
+    for i in config['default']['indexes']:
+        if os.path.isfile("{0}{1}".format(uri, i))
+            uri = "{0}{1}".format(uri, i)
+            return uri
+    return False
 
 
 if __name__ == '__main__':
