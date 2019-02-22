@@ -21,7 +21,7 @@ def main(args, config, rawreq):
 def getFiles(config, uri, statusCode):
     file_ext = uri.split('/')[-1].split('.')[-1]
     if file_ext not in config['defaults']['file_ext']:
-        uri = deckFiles(config, uri)
+        uri = checkFiles(config, uri)
     if uri:
         try:
             with open(uri, 'r') as newfile:
