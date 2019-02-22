@@ -9,7 +9,8 @@ def main(config, statusCode):
                      403: 'NotAuthorized',
                      405: 'MethodNotAllowed'}
     timeFormat = 'Date: %a, %d %b %Y %H:%M:%S GMT'
-    headers.append("HTTP/1.1 {0} {1}".format(statusCode, statusMessage[statusCode]))
+    headers.append("HTTP/1.1 {0} {1}".format(statusCode,
+                   statusMessage[statusCode]))
     headers.append("Server: worstPythonServerEver")
     headers.append("Location: {0}".format(config['server']['name']))
     headers.append(time.strftime(timeFormat, time.gmtime()))
