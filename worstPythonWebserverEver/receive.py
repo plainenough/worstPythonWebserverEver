@@ -10,7 +10,7 @@ def main(args, config, rawreq):
     body = ''
     if response == 'GET':
         uri = req[1]
-        (body, statusCode) = getFiles(uri, statusCode)
+        (body, statusCode) = getFiles(config, uri, statusCode)
     myHeaders = headers.main(config, statusCode)
     header = '\r'.join(myHeaders)
     response = "{0}\n\n{1}".format(header, body)
@@ -19,12 +19,17 @@ def main(args, config, rawreq):
 
 
 def getFiles(config, uri, statusCode):
+    path = config['server']['webroot']
     file_ext = uri.split('/')[-1].split('.')[-1]
+    request = '{0}{1}'.format(path, uri)
+    body = ""
     if file_ext not in config['defaults']['file_ext']:
-        uri = checkFiles(config, uri)
-    if uri:
+        request = checkFiles(config, request)
+    elif file_ext == '/':
+        request = checkFiles(config, request)
+    if request:
         try:
-            with open(uri, 'r') as newfile:
+            with open(request, 'r') as newfile:
                 statusCode = 200
                 body = newfile.read()
         except IOError:
@@ -33,7 +38,7 @@ def getFiles(config, uri, statusCode):
             statusCode = 500
     else:
         statusCode = 404
-    if body == '':
+    if statusCode != 200:
         try:
             errorPath = config['defaults']['error_pages'][statusCode]
             with open(errorPath, 'r') as errorDoc:
@@ -43,11 +48,12 @@ def getFiles(config, uri, statusCode):
     return body, statusCode
 
 
-def checkFiles(config, uri):
+def checkFiles(config, request):
     import os
-    for i in config['default']['indexes']:
-        if os.path.isfile("{0}{1}".format(uri, i)):
-            uri = "{0}{1}".format(uri, i)
+    for i in config['defaults']['indexes']:
+        if os.path.isfile("{0}{1}".format(request, i)):
+            uri = "{0}{1}".format(request, i)
+            print(uri)
             return uri
     return False
 
