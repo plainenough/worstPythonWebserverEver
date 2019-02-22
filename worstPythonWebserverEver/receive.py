@@ -43,14 +43,14 @@ def getFiles(config, uri, statusCode):
             with open(errorPath, 'r') as errorDoc:
                 body = errorDoc.read()
         except Exception:
-            body='EMPTY ERROR STRING'
+            body = 'EMPTY ERROR STRING'
     return body, statusCode
 
 
 def checkFiles(config, uri):
     import os
     for i in config['default']['indexes']:
-        if os.path.isfile("{0}{1}".format(uri, i))
+        if os.path.isfile("{0}{1}".format(uri, i)):
             uri = "{0}{1}".format(uri, i)
             return uri
     return False
