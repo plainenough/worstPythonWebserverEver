@@ -14,10 +14,13 @@ server:
     threading: false
     thread_count: 8
     user: wwe-data
-    webroot: '/var/www/html'
+    webroot: '~/html'
 
 defaults:
-    default_index: index.html
+    indexes: 
+        - index.html
+        - index.htm
+        - index.txt
     error_pages:
         403: docs/403.html
         404: docs/404.html
@@ -32,4 +35,3 @@ defaults:
         - jpg
         - gif
         - css
-    secondary_index: index.htm
