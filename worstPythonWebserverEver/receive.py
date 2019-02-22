@@ -4,9 +4,6 @@
 def main(args, config, rawreq):
     import method
     import headers
-    # Request parsing
-    # TODO: rework how headers are generated.
-    # this primitive header handling suits my current needs
     req = str(rawreq, "utf-8").split(' ')
     myMethod = req[0]
     (response, statusCode) = method.main(myMethod)
@@ -14,7 +11,7 @@ def main(args, config, rawreq):
     if response == 'GET':
         uri = req[1]
         (body, statusCode) = getFiles(uri, statusCode)
-    myHeaders = headers.main(config, status)
+    myHeaders = headers.main(config, statusCode)
     header = '\r'.join(myHeaders)
     response = "{0}\n\n{1}".format(header, body)
     data = str.encode(response, 'utf-8')
@@ -22,7 +19,6 @@ def main(args, config, rawreq):
 
 
 def getFiles(config, uri, statusCode):
-    # TODO:  add templated files for return
     file_ext = uri.split('/')[-1].split('.')[-1]
     if file_ext not in config['defaults']['file_ext']:
         uri = deckFiles(config, uri)
