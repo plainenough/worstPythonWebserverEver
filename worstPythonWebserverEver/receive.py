@@ -12,8 +12,8 @@ def main(args, config, rawreq):
         uri = req[1]
         (body, statusCode) = getFiles(config, uri, statusCode)
     myHeaders = headers.main(config, statusCode)
-    header = '\r'.join(myHeaders)
-    response = "{0}\n\n{1}".format(header, body)
+    header = '\r\n'.join(myHeaders)
+    response = "{0}\r\n\r\n{1}".format(header, body)
     data = str.encode(response, 'utf-8')
     return data
 

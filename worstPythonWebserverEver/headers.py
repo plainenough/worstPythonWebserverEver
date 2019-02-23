@@ -12,6 +12,7 @@ def main(config, statusCode):
     headers.append("HTTP/1.1 {0} {1}".format(statusCode,
                    statusMessage[statusCode]))
     headers.append("Server: worstPythonServerEver")
+    headers.append("Action: Jackson")
     headers.append("Location: {0}".format(config['server']['name']))
     headers.append(time.strftime(timeFormat, time.gmtime()))
     return headers
