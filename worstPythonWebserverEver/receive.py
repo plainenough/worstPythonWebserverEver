@@ -44,7 +44,6 @@ def getFiles(config, uri, statusCode):
         try:
             errorPath = config['error_pages'][statusCode]
             if config['custom_error_pages'] == False:
-                print("We do not have custom error pages")
                 errorPath = "{0}/{1}".format(config['server_working_dir'],
                                              errorPath)
             with open(errorPath, 'r') as errorDoc:
