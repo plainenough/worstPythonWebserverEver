@@ -19,11 +19,11 @@ def main(args, config, rawreq):
 
 
 def getFiles(config, uri, statusCode):
-    path = config['server']['webroot']
+    path = config['webroot']
     file_ext = uri.split('/')[-1].split('.')[-1]
     request = '{0}{1}'.format(path, uri)
     body = ""
-    if file_ext not in config['defaults']['file_ext']:
+    if file_ext not in config['file_ext']:
         request = checkFiles(config, request)
     elif file_ext == '/':
         request = checkFiles(config, request)
@@ -42,17 +42,21 @@ def getFiles(config, uri, statusCode):
         statusCode = 404
     if statusCode != 200:
         try:
-            errorPath = config['defaults']['error_pages'][statusCode]
+            errorPath = config['error_pages'][statusCode]
+            if config['custom_error_pages'] == False:
+                print("We do not have custom error pages")
+                errorPath = "{0}/{1}".format(config['server_working_dir'],
+                                             errorPath)
             with open(errorPath, 'r') as errorDoc:
                 body = errorDoc.read()
         except Exception:
-            body = 'EMPTY ERROR STRING'
+            body = 'EMPTY ERROR PAGE RESPONSE'
     return body, statusCode
 
 
 def checkFiles(config, request):
     import os
-    for i in config['defaults']['indexes']:
+    for i in config['default_indexes']:
         if os.path.isfile("{0}{1}".format(request, i)):
             uri = "{0}{1}".format(request, i)
             return uri

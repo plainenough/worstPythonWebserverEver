@@ -2,10 +2,7 @@
 
 
 def main(config, method):
-    if config['server']['methods']:
-        methodsEnabled = config['server']['methods']
-    else:
-        methodsEnabled = ["OPTIONS", "HEAD", "GET"]
+    methodsEnabled = config['methods']
     if method.upper() in [x.upper() for x in methodsEnabled]:
         (response, statusCode) = checkMethod(method)
     else:

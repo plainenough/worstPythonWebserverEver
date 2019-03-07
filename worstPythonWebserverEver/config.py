@@ -27,12 +27,13 @@ def main():
 
 def configOveride(loadedConfig):
     import os
-    codedDefaults = {'server_ipv4': '127.0.0.1', 'server_port': 80,
+    codedDefaults = {'server_ipv4': '0.0.0.0', 'server_port': 80,
                      'access_log_path': '/var/log/wpwe/access.log',
                      'error_log_path': '/var/log/wpwe/error.log',
                      'methods': ['HEAD', 'GET', 'OPTIONS'],
                      'server_name': 'localhost', 'user': 'wpwe-data',
                      'webroot': '/var/www/html',
+                     'custom_error_pages': False,
                      'default_indexes': ['index.html', 'index.htm',
                                          'index.txt'],
                      'error_pages': {403: 'docs/403.html',
@@ -46,8 +47,7 @@ def configOveride(loadedConfig):
     for k in loadedConfig.keys():
         codedDefaults[k] = loadedConfig[k]
     codedDefaults['server_working_dir'] = mypath
-    print(codedDefaults)
-    exit(1)
+    return codedDefaults
 
 
 if __name__ == '__main__':

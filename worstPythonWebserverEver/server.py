@@ -5,8 +5,7 @@ def main():
     import receive
     import config
     (args, config, log) = config.main()
-    serversocket = createSocket()
-    # TODO: add configuration import
+    serversocket = createSocket(config)
     while True:
         (clientsocket, address) = serversocket.accept()
         data = clientsocket.recv(1024)
@@ -15,11 +14,11 @@ def main():
         clientsocket.close()
 
 
-def createSocket():
+def createSocket(config):
     import socket
     serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     # serversocket.bind((socket.gethostname(), 80))
-    serversocket.bind(('', 80))
+    serversocket.bind((config['server_ipv4'], config['server_port']))
     # TODO: Wire up config here.
     serversocket.listen(5)
     return serversocket
