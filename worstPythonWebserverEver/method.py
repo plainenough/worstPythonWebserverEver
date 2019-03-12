@@ -4,21 +4,21 @@
 def main(config, method):
     methodsEnabled = config['methods']
     if method.upper() in [x.upper() for x in methodsEnabled]:
-        (response, statusCode) = checkMethod(method)
+        (response, statusCode) = checkMethod(method.upper(), methodsEnabled)
     else:
         statusCode = 405
         response = "METHOD NOT ALLOWED"
     return response, statusCode
 
 
-def checkMethod(method):
+def checkMethod(method, methodsEnabled):
     statuscode = 'UNSET'
     if method == 'OPTIONS':
-        statusecode = 200
+        statuscode = 200
         response = "Allow: {0}".format(' '.join(methodsEnabled).upper())
     elif method == 'HEAD':
         statuscode = 200
-        response = False
+        response = ''
     elif method == 'GET':
         response = 'GET'
     elif method == 'POST':
