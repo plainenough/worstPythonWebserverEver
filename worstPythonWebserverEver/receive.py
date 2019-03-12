@@ -6,12 +6,14 @@ def main(args, config, rawreq):
     import headers
     req = str(rawreq, "utf-8").split(' ')
     myMethod = req[0]
-    (response, statusCode) = method.main(config, myMethod)
+    (methodResponse, statusCode) = method.main(config, myMethod)
     body = ''
-    if response == 'GET':
+    myHeaders = headers.main(config, statusCode)
+    if methodResponse == 'GET':
         uri = req[1]
         (body, statusCode) = getFiles(config, uri, statusCode)
-    myHeaders = headers.main(config, statusCode)
+    else: 
+        myHeaders.append(methodResponse)
     header = '\r\n'.join(myHeaders)
     response = "{0}\r\n\r\n{1}".format(header, body)
     data = str.encode(response, 'utf-8')
