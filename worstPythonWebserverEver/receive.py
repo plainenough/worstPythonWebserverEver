@@ -43,7 +43,7 @@ def getFiles(config, uri, statusCode):
     if statusCode != 200:
         try:
             errorPath = config['error_pages'][statusCode]
-            if config['custom_error_pages'] == False:
+            if config['custom_error_pages'] is False:
                 errorPath = "{0}/{1}".format(config['server_working_dir'],
                                              errorPath)
             with open(errorPath, 'r') as errorDoc:
