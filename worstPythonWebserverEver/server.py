@@ -2,16 +2,17 @@
 
 
 def main():
-    import receive
     import config
+    import multiprocessing as mp
     (args, config, log) = config.main()
     serversocket = createSocket(config)
     while True:
         (clientsocket, address) = serversocket.accept()
         data = clientsocket.recv(1024)
-        response = receive.main(args, config, data)
-        clientsocket.sendall(response)
-        clientsocket.close()
+        p = mp.Process(target=handleRequest, args=(args, config, data, clientsocket))
+        p.start()
+        p.join()
+    serversocket.close()
 
 
 def createSocket(config):
@@ -22,6 +23,15 @@ def createSocket(config):
     # TODO: Wire up config here.
     serversocket.listen(5)
     return serversocket
+
+
+def handleRequest(args, config, data, clientsocket):
+    import receive
+    clientsocket.setblocking(0)
+    response = receive.main(args, config, data)
+    clientsocket.send(response)
+    clientsocket.close()
+    return
 
 
 if __name__ == '__main__':
