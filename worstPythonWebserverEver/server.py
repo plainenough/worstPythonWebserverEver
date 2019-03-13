@@ -9,7 +9,8 @@ def main():
     while True:
         (clientsocket, address) = serversocket.accept()
         data = clientsocket.recv(1024)
-        p = mp.Process(target=handleRequest, args=(args, config, data, clientsocket))
+        p = mp.Process(target=handleRequest, args=(args, config,
+                                                   data, clientsocket))
         p.start()
         p.join()
     serversocket.close()
