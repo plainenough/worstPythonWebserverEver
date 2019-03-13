@@ -8,12 +8,11 @@ def main(args, config, rawreq):
     myMethod = req[0]
     (methodResponse, statusCode) = method.main(config, myMethod)
     body = ''
-    myHeaders = headers.main(config, statusCode)
     if methodResponse == 'GET':
         uri = req[1]
         (body, statusCode) = getFiles(config, uri, statusCode)
-    else: 
-        myHeaders.append(methodResponse)
+    myHeaders = headers.main(config, statusCode)
+    myHeaders.append(methodResponse)
     header = '\r\n'.join(myHeaders)
     response = "{0}\r\n\r\n{1}".format(header, body)
     data = str.encode(response, 'utf-8')
