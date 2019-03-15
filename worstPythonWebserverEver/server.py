@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+import socket
 
 def main():
     import config
@@ -8,9 +8,7 @@ def main():
     serversocket = createSocket(config)
     while True:
         (clientsocket, address) = serversocket.accept()
-        data = clientsocket.recv(1024)
-        p = mp.Process(target=handleRequest, args=(args, config,
-                                                   data, clientsocket))
+        p = mp.Process(target=handleRequest, args=(args, config, clientsocket))
         p.start()
         p.join()
     serversocket.close()
@@ -26,12 +24,15 @@ def createSocket(config):
     return serversocket
 
 
-def handleRequest(args, config, data, clientsocket):
+def handleRequest(args, config, clientsocket):
     import receive
     clientsocket.setblocking(0)
+    data = clientsocket.recv(1024)
     response = receive.main(args, config, data)
     clientsocket.send(response)
+    clientsocket.shutdown(socket.SHUT_RDWR)
     clientsocket.close()
+    del clientsocket
     return
 
 
