@@ -1,4 +1,4 @@
-# WorstPythonWebserverEver
+# worstPythonWebserverEver
 I am building a horrible webserver in python.
 
 # setup
