@@ -1,12 +1,12 @@
-# python
-Just my repo for learning.
+# WorstPythonWebserverEver
+I am building a horrible webserver in python.
 
 # setup
 * Copy config file docs folder to location.
 * Ammend config and start service.
 
 # usage
-python3 worstPythonWebserverEver -c /path/to/config/file.config
+python3 wpwe -c /path/to/config/file.config
 
 # Other notes
 This webserver is under an intial release 1.0 and although is functional

@@ -4,6 +4,8 @@
 def main(config, statusCode):
     import time
     headers = []
+    if statusCode == 'UNSET':
+        statusCode = 500
     statusMessage = {200: 'OK', 404: 'NotFound',
                      500: 'InternalServerError',
                      403: 'NotAuthorized',
@@ -11,9 +13,9 @@ def main(config, statusCode):
     timeFormat = 'Date: %a, %d %b %Y %H:%M:%S GMT'
     headers.append("HTTP/1.1 {0} {1}".format(statusCode,
                    statusMessage[statusCode]))
-    headers.append("Server: worstPythonServerEver")
+    headers.append("Server: worstPythonWebserverEver")
     headers.append("Action: Jackson")
-    headers.append("Location: {0}".format(config['server']['name']))
+    headers.append("Location: {0}".format(config['server_name']))
     headers.append(time.strftime(timeFormat, time.gmtime()))
     return headers
 
