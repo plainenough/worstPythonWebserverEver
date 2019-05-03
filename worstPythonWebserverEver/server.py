@@ -11,16 +11,16 @@ def main():
         p = mp.Process(target=handleRequest, args=(args, config, clientsocket))
         p.start()
         p.join()
+        print(mp.active_children())
     serversocket.close()
+    return
 
 
 def createSocket(config):
     import socket
     serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    # serversocket.bind((socket.gethostname(), 80))
     serversocket.bind((config['server_ipv4'], config['server_port']))
-    # TODO: Wire up config here.
-    serversocket.listen(5)
+    serversocket.listen(1)
     return serversocket
 
 
