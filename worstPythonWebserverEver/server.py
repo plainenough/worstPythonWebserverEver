@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+import socket
 
 def main():
     import config
@@ -7,10 +7,8 @@ def main():
     (args, config, log) = config.main()
     serversocket = createSocket(config)
     while True:
-        (csock, addr) = serversocket.accept()
-        #data = csock.recv(1024)
-        p = mp.Process(target=handleRequest, args=(args, config,
-                                                   csock, addr))
+        (clientsocket, address) = serversocket.accept()
+        p = mp.Process(target=handleRequest, args=(args, config, clientsocket))
         p.start()
         p.join()
         print(mp.active_children())
@@ -26,15 +24,16 @@ def createSocket(config):
     return serversocket
 
 
-def handleRequest(args, config, csock, addr):
+def handleRequest(args, config, clientsocket):
     import receive
-    print("Connection from {0}".format(addr))
-    data = csock.recv(1024)
-    csock.setblocking(False)
+    clientsocket.setblocking(0)
+    data = clientsocket.recv(1024)
     response = receive.main(args, config, data)
-    csock.sendall(response)
-    csock.close()
-    return False
+    clientsocket.send(response)
+    clientsocket.shutdown(socket.SHUT_RDWR)
+    clientsocket.close()
+    del clientsocket
+    return
 
 
 if __name__ == '__main__':
