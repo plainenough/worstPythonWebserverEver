@@ -8,6 +8,9 @@ def main(args, config, rawreq):
     myMethod = req[0]
     (methodResponse, statusCode) = method.main(config, myMethod)
     body = ''
+    if config['listen_mode']:
+        print(req)
+        return str.encode(str(req), 'utf-8')
     if methodResponse == 'GET':
         uri = req[1]
         (body, statusCode) = getFiles(config, uri, statusCode)
