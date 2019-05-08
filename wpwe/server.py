@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import socket
+
 
 def main():
     import config
@@ -24,6 +24,7 @@ def createSocket(config):
 
 
 def handleRequest(args, config, clientsocket):
+    import socket
     import receive
     clientsocket.setblocking(0)
     data = clientsocket.recv(1024)
