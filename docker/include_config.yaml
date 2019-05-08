@@ -1,0 +1,33 @@
+server_ipv4: 0.0.0.0
+server_port: 80
+access_log_path: '/var/log/wpwe/access.log'
+error_log_path: '/var/log/wpwe/error.log'
+methods:
+    - POST
+    - HEAD
+    - PUT
+    - DELETE
+    - GET
+    - OPTIONS
+server_name: localhost
+user: wpwe-data
+webroot: '/var/www/html'
+default_indexes: 
+    - index.html
+    - index.htm
+    - index.txt
+error_pages:
+    403: docs/403.html
+    404: docs/404.html
+    405: docs/405.html
+    500: docs/500.html
+listen_mode: true
+file_ext:
+    - html
+    - htm
+    - png
+    - txt
+    - jpeg
+    - jpg
+    - gif
+    - css

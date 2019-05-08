@@ -40,6 +40,7 @@ def configOveride(loadedConfig):
                                      404: 'docs/404.html',
                                      405: 'docs/405.html',
                                      500: 'docs/500.html'},
+                     'listen_mode': False,
                      'file_ext': ['html', 'htm', 'png', 'txt',
                                   'jpeg', 'jpg', 'gif', 'css']}
     mypath = os.path.dirname(os.path.realpath(__file__))
