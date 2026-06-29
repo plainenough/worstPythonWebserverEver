@@ -1,16 +1,16 @@
-server_ipv4: 0.0.0.0
+server_ipv4: 127.0.0.1
 server_port: 8080
-access_log_path: '/var/log/wpwe/access.log'
-error_log_path: '/var/log/wpwe/error.log'
+access_log_path: './logs/access.log'
+error_log_path: './logs/error.log'
 methods:
-    - POST
     - HEAD
-    - PUT
-    - DELETE
     - GET
     - OPTIONS
+    - POST
+    - PUT
+    - DELETE
 server_name: localhost
-webroot: '/app/example_site'
+webroot: './example_site'
 custom_error_pages: false
 default_indexes:
     - index.html

@@ -1,38 +1,25 @@
 #!/usr/bin/env python3
 
 
-def main(config, method):
-    methodsEnabled = config['methods']
-    if method.upper() in [x.upper() for x in methodsEnabled]:
-        (response, statusCode) = checkMethod(method.upper(), methodsEnabled)
-    else:
-        statusCode = 405
-        response = "METHOD NOT ALLOWED"
-    return response, statusCode
+def validate_method(config, method):
+    allowed = [entry.upper() for entry in config["methods"]]
+    method = method.upper()
+    if method not in allowed:
+        return False, 405, []
+    return True, 200, []
 
 
-def checkMethod(method, methodsEnabled):
-    statuscode = 'UNSET'
-    if method == 'OPTIONS':
-        statuscode = 200
-        response = "Allow: {0}".format(' '.join(methodsEnabled).upper())
-    elif method == 'HEAD':
-        statuscode = 200
-        response = ''
-    elif method == 'GET':
-        response = 'GET'
-    elif method == 'POST':
-        response = 'POST'
-    elif method == 'PUT':
-        response = 'PUT'
-    elif method == 'DELETE':
-        response = 'DELETE'
-    else:
-        response = 'INTERNAL SERVER ERROR'
-        statuscode = 500
-    return response, statuscode
+def method_extra_headers(config, method):
+    method = method.upper()
+    if method == "OPTIONS":
+        allowed = " ".join(config["methods"])
+        return [f"Allow: {allowed}"]
+    return []
 
 
-if __name__ == '__main__':
-    print("You are running this package incorrectly. RTFM.")
-    exit(1)
+def serves_static_file(method):
+    return method.upper() in {"GET", "HEAD"}
+
+
+def is_write_method(method):
+    return method.upper() in {"POST", "PUT", "DELETE"}

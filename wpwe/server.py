@@ -1,41 +1,69 @@
 #!/usr/bin/env python3
 
+import logging
+import os
+import pwd
+import socket
+import threading
 
-def main():
-    import config
-    import multiprocessing as mp
-    (args, config, log) = config.main()
-    serversocket = createSocket(config)
-    while True:
-        (clientsocket, address) = serversocket.accept()
-        p = mp.Process(target=handleRequest, args=(args, config, clientsocket))
-        p.start()
-        p.join()
-    serversocket.close()
-    return
+from wpwe import config, receive
 
 
-def createSocket(config):
-    import socket
+def drop_privileges(server_config):
+    username = server_config.get("user")
+    if not username:
+        return
+
+    try:
+        user_info = pwd.getpwnam(username)
+    except KeyError:
+        logging.warning("Configured user %r not found; continuing as current user", username)
+        return
+
+    if user_info.pw_uid == 0:
+        logging.warning("Refusing to drop privileges to root")
+        return
+
+    os.setgid(user_info.pw_gid)
+    os.setgroups([user_info.pw_gid])
+    os.setuid(user_info.pw_uid)
+    logging.info("Dropped privileges to user %s", username)
+
+
+def create_socket(server_config):
     serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    serversocket.bind((config['server_ipv4'], config['server_port']))
-    serversocket.listen(2)
+    serversocket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    serversocket.bind((server_config["server_ipv4"], server_config["server_port"]))
+    serversocket.listen(128)
     return serversocket
 
 
-def handleRequest(args, config, clientsocket):
-    import socket
-    import receive
-    clientsocket.setblocking(0)
-    data = clientsocket.recv(1024)
-    response = receive.main(args, config, data)
-    clientsocket.send(response)
-    clientsocket.shutdown(socket.SHUT_RDWR)
-    clientsocket.close()
-    del clientsocket
-    return
+def main():
+    args, loaded_config = config.main()
+    serversocket = create_socket(loaded_config)
+    drop_privileges(loaded_config)
+    logging.info(
+        "Serving on http://%s:%s (webroot: %s)",
+        loaded_config["server_ipv4"],
+        loaded_config["server_port"],
+        loaded_config["webroot"],
+    )
+
+    try:
+        while True:
+            clientsocket, address = serversocket.accept()
+            worker = threading.Thread(
+                target=receive.handle_request,
+                args=(args, loaded_config, clientsocket, address),
+                daemon=True,
+            )
+            worker.start()
+    except KeyboardInterrupt:
+        logging.info("Shutting down")
+    finally:
+        serversocket.close()
 
 
-if __name__ == '__main__':
-    print("You are running this package incorrectly. RTFM.")
-    exit(1)
+if __name__ == "__main__":
+    print("Run with: python3 -m wpwe -c /path/to/config.yaml")
+    raise SystemExit(1)

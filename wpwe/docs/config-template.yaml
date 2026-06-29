@@ -1,5 +1,5 @@
 server_ipv4: 127.0.0.1
-server_port: 80
+server_port: 8080
 access_log_path: '/var/log/wpwe/access.log'
 error_log_path: '/var/log/wpwe/error.log'
 methods:
@@ -21,6 +21,9 @@ error_pages:
     404: docs/404.html
     405: docs/405.html
     500: docs/500.html
+    501: docs/500.html
+custom_error_pages: false
+listen_mode: false
 file_ext:
     - html
     - htm
