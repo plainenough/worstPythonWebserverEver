@@ -3,10 +3,7 @@ server_port: 8080
 access_log_path: '/var/log/wpwe/access.log'
 error_log_path: '/var/log/wpwe/error.log'
 methods:
-    - POST
     - HEAD
-    - PUT
-    - DELETE
     - GET
     - OPTIONS
 server_name: localhost
@@ -14,8 +11,6 @@ webroot: '/app/example_site'
 custom_error_pages: false
 default_indexes:
     - index.html
-    - index.htm
-    - index.txt
 error_pages:
     403: docs/403.html
     404: docs/404.html
@@ -25,10 +20,16 @@ error_pages:
 listen_mode: false
 file_ext:
     - html
-    - htm
-    - png
-    - txt
-    - jpeg
-    - jpg
-    - gif
     - css
+    - js
+max_workers: 100
+health_check_path: /healthz
+tls:
+    enabled: false
+    cert_file: /app/certs/cert.pem
+    key_file: /app/certs/key.pem
+    port: 8443
+http2:
+    enabled: true
+security_headers:
+    enabled: true

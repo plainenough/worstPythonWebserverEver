@@ -4,3 +4,4 @@
 **config.yaml
 logs/
 .venv/
+.pytest_cache/

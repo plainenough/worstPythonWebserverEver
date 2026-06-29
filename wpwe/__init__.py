@@ -1,3 +1,3 @@
-"""worstPythonWebserverEver - a deliberately minimal Python HTTP server."""
+"""worstPythonWebserverEver - production static HTTP server."""
 
-__version__ = "1.1.0"
+__version__ = "2.0.0"
