@@ -1,6 +1,6 @@
 # worstPythonWebserverEver
 
-A deliberately minimal Python HTTP server — rebuilt to actually match its config.
+A production-capable static HTTP server in Python — still proudly minimal, now with modern protocols.
 
 ## Setup
 
@@ -12,41 +12,77 @@ cp config.example.yaml config.yaml
 python3 -m wpwe -c config.yaml
 ```
 
-Visit `http://127.0.0.1:8080/` (or whatever `server_port` you configured).
+Visit `http://127.0.0.1:8080/` (or your configured port).
 
 ## Usage
 
 ```bash
-python3 -m wpwe -c /path/to/config.yaml
+python3 -m wpwe -c config.yaml
 python3 -m wpwe -c config.yaml -d      # verbose logging
 python3 -m wpwe -c config.yaml -dd     # debug logging
+pytest
 ```
 
-## Config
+## Features (v2.0)
 
-See `config.example.yaml` and `wpwe/docs/config-template.yaml` for available options.
+- **HTTP/1.1** with keep-alive, Host validation, streaming, and request limits
+- **HTTPS + HTTP/2** when `tls.enabled: true` (ALPN negotiates h2 or http/1.1)
+- **Modern static assets** — HTML5, JS modules, CSS, SVG, WebP, WASM, fonts
+- **Security headers** — HSTS (HTTPS), CSP (optional), X-Frame-Options, etc.
+- **Operational controls** — worker pool, graceful shutdown, health check path, access/error logs
 
-Supported behavior:
+## TLS / HTTP/2
 
-- **GET** — serve files from `webroot` with directory index fallback
-- **HEAD** — same as GET without a response body
-- **OPTIONS** — returns an `Allow` header listing configured methods
-- **POST / PUT / DELETE** — allowed if listed in `methods`, responds with `501 Not Implemented`
-- **listen_mode** — echo the raw request back instead of serving files
-- **access_log_path** / **error_log_path** — Apache-style access log and error log
-- **error_pages** — custom HTML for 403, 404, 405, 500, and 501 responses
+Generate or install certificates, then enable TLS in `config.yaml`:
 
-Paths are resolved under `webroot` with basic traversal protection.
+```yaml
+tls:
+  enabled: true
+  cert_file: /path/to/fullchain.pem
+  key_file: /path/to/privkey.pem
+  port: 8443
+http2:
+  enabled: true
+```
+
+Test:
+
+```bash
+curl -k https://localhost:8443/
+curl -k --http2 https://localhost:8443/ -v
+```
+
+## Production checklist
+
+1. Terminate TLS with valid certificates (Let's Encrypt, etc.)
+2. Run behind a reverse proxy if you need HTTP/3 (QUIC) — use Caddy, nginx, or Cloudflare
+3. Set `server_name` to your domain and configure `security_headers`
+4. Run as a non-root user (`user` in config) after binding to privileged ports via systemd `AmbientCapabilities` or port forwarding
+5. Monitor `access_log_path` and `error_log_path`
+6. Use `health_check_path` (`/healthz` by default) for load balancers
 
 ## Docker
 
 ```bash
 docker build -f docker/Dockerfile -t wpwe .
-docker run --rm -p 8080:8080 wpwe
+docker run --rm -p 8080:8080 -p 8443:8443 wpwe
 ```
+
+Mount your own webroot/certs:
+
+```bash
+docker run --rm -p 8080:8080 \
+  -v "$PWD/example_site:/app/example_site" \
+  -v "$PWD/config.yaml:/app/config.yaml" \
+  wpwe
+```
+
+## Out of scope
+
+- HTTP/3 / QUIC (use a reverse proxy)
+- Dynamic apps (WSGI/ASGI/CGI)
+- Full POST/PUT/DELETE handlers (returns 501)
 
 ## Notes
 
-This is still not a production web server. It is closer to what the original config promised: logging, method handling, safer config loading, and concurrent request handling via threads.
-
-Use at your own risk — but with slightly less bravery than before.
+This is a real static file server now, but it is still not nginx. Use at your own risk — with moderately less bravery than before.

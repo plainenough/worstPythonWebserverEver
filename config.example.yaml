@@ -32,3 +32,38 @@ file_ext:
     - jpg
     - gif
     - css
+    - js
+    - mjs
+    - json
+    - svg
+    - webp
+    - wasm
+    - ico
+    - woff2
+max_request_bytes: 65536
+request_timeout_seconds: 30
+max_workers: 100
+allow_symlinks: false
+health_check_path: /healthz
+redirect_http_to_https: false
+tls:
+    enabled: false
+    cert_file: ./certs/cert.pem
+    key_file: ./certs/key.pem
+    min_version: TLSv1.2
+    port: 8443
+http2:
+    enabled: true
+    max_concurrent_streams: 100
+security_headers:
+    enabled: true
+    x_content_type_options: nosniff
+    x_frame_options: DENY
+    referrer_policy: strict-origin-when-cross-origin
+    content_security_policy: ""
+    permissions_policy: geolocation=(), microphone=(), camera=()
+    strict_transport_security: max-age=31536000; includeSubDomains
+cache_control:
+    default: public, max-age=3600
+    html: no-cache
+    htm: no-cache
